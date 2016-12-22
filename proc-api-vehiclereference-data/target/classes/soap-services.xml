@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw"
+	xmlns:ws="http://www.mulesoft.org/schema/mule/ws"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/current/mule-ws.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+   
+    <sub-flow name="getManufacturers">
+        <dw:transform-message doc:name="requestManufacturers">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/xml
+%namespace ns0 urn:ebx-schemas:dataservices_1.0
+---
+{
+	ns0#select_Manufacturers: {
+		branch: "VehicleMasterDataSpace",
+		instance: "VehicleReferenceDataSet",
+		predicate: flowVars.serviceInput as :string
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <flow-ref name="soapHeaderProperty" doc:name="soapHeaderProperty"/>
+        <ws:consumer config-ref="Web_Service_Consumer" operation="select_ManufacturersOperation" doc:name="Web Service Consumer"/>
+        <dw:transform-message doc:name="Transform Message">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+---
+payload]]></dw:set-payload>
+            <dw:set-variable variableName="manufacturersOutput"><![CDATA[%dw 1.0
+%output application/java
+%namespace ns0 urn:ebx-schemas:dataservices_1.0
+---
+payload.ns0#select_ManufacturersResponse.data.root.ChromeNewVehicleData.*Manufacturers]]></dw:set-variable>
+        </dw:transform-message>
+        <logger message="#[flowVars.manufacturersOutput]" level="INFO" doc:name="Logger"/>
+    </sub-flow>
+<sub-flow name="getDivisionsSubFlow">
+        <dw:transform-message doc:name="requestDivisions">
+            <dw:set-payload><![CDATA[%dw 1.0
+%input payload application/xml
+%output application/xml
+%namespace ns0 urn:ebx-schemas:dataservices_1.0
+---
+  {
+	ns0#select_Divisions: {
+		branch: "VehicleMasterDataSpace",
+		instance: "VehicleReferenceDataSet",
+		predicate: flowVars.serviceInput as :string
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <flow-ref name="soapHeaderProperty" doc:name="soapHeaderProperty"/>
+        <ws:consumer config-ref="Web_Service_Consumer" operation="select_DivisionsOperation" doc:name="Web Service Consumer"/>
+        <dw:transform-message doc:name="Transform Message">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+---
+payload]]></dw:set-payload>
+            <dw:set-variable variableName="divisionResponse"><![CDATA[%dw 1.0
+%output application/java
+%namespace ns0 urn:ebx-schemas:dataservices_1.0
+---
+payload.ns0#select_DivisionsResponse.data.root.ChromeNewVehicleData.*Divisions]]></dw:set-variable>
+        </dw:transform-message>
+      </sub-flow>
+    <sub-flow name="getSubdivisionsSubFlow">
+        <flow-ref name="soapHeaderProperty" doc:name="soapHeaderProperty"/>
+        <dw:transform-message doc:name="requestsubdivisions">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/xml
+%namespace ns0 urn:ebx-schemas:dataservices_1.0
+---
+{
+	ns0#select_subdivisions: {
+		branch: "VehicleMasterDataSpace",
+		instance: "VehicleReferenceDataSet",
+		predicate: flowVars.serviceInput as :string
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <ws:consumer config-ref="Web_Service_Consumer" operation="select_subdivisionsOperation" doc:name="Web Service Consumer"/>
+        <dw:transform-message doc:name="Transform Message">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+---
+{
+}]]></dw:set-payload>
+            <dw:set-variable variableName="subdivisionsOutput"><![CDATA[%dw 1.0
+%output application/java
+%namespace ns0 urn:ebx-schemas:dataservices_1.0
+---
+payload.ns0#select_subdivisionsResponse.data.root.ChromeNewVehicleData.*subdivisions]]></dw:set-variable>
+        </dw:transform-message>
+    </sub-flow>
+    <sub-flow name="getModelSubFlow">
+    <flow-ref name="soapHeaderProperty" doc:name="soapHeaderProperty"/>
+        <dw:transform-message doc:name="requestmodel">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/xml
+%namespace ns0 urn:ebx-schemas:dataservices_1.0
+---
+{
+	ns0#select_Models: {
+	branch: "VehicleMasterDataSpace",
+		instance: "VehicleReferenceDataSet",
+		predicate: flowVars.serviceInput as :string
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <ws:consumer config-ref="Web_Service_Consumer" operation="select_ModelsOperation" doc:name="selectModelsOperation"/>
+        <dw:transform-message doc:name="Transform Message">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+---
+{}]]></dw:set-payload>
+            <dw:set-variable variableName="modelResponse"><![CDATA[%dw 1.0
+%output application/java
+%namespace ns0 urn:ebx-schemas:dataservices_1.0
+---
+payload.ns0#select_ModelsResponse.data.root.ChromeNewVehicleData.*Models]]></dw:set-variable>
+        </dw:transform-message>
+    </sub-flow>
+    <sub-flow name="soapHeaderProperty">
+        <set-property propertyName="soap.head" value="&lt;sec:Security xmlns:sec=&quot;http://schemas.xmlsoap.org/ws/2002/04/secext&quot;&gt;&lt;UsernameToken&gt;&lt;Username&gt;admin&lt;/Username&gt;&lt;Password&gt;admin&lt;/Password&gt;&lt;/UsernameToken&gt;&lt;/sec:Security&gt;" doc:name="Property"/>
+    </sub-flow>
+</mule>

@@ -1,0 +1,24 @@
+    description: Search vehicle information
+    get:
+        is: [client-id-required]
+        description: Search vehicle information using Manufacturer name
+        queryParameters:
+           manufacturerName:
+             displayName: vehicle manufacturer Name
+             type: string
+             description: vehicle manufacturer Name
+             example: Volvo
+             required: true
+        responses:
+          200:
+            body:    
+              schema: vehicle
+              example: !include examples/search/vehicle.json
+          400: 
+            description: No Vehicle found in the MDM system for the given search criteria
+            body:
+              schema: error
+          500: 
+            description: No Vehicle found in the MDM system for the given search criteria
+            body:
+              schema: error

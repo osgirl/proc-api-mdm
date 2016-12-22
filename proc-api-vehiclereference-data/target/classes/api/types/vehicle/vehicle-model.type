@@ -1,0 +1,68 @@
+{
+	"type":"object",
+	"$schema": "http://json-schema.org/draft-03/schema",
+	"id": "http://jsonschema.net",
+	"required":false,
+	"properties":{
+		"vehicleModel": {
+			"type":"array",
+			"id": "http://jsonschema.net/vehicleModel",
+			"required":false,
+			"items":
+				{
+					"type":"object",
+					"id": "http://jsonschema.net/vehicleModel/0",
+					"required":false,
+					"properties":{
+						"HistModelID": {
+							"type":"string",
+							"id": "http://jsonschema.net/vehicleModel/0/HistModelID",
+							"required":false
+						},
+						"availability": {
+							"type":"null",
+							"id": "http://jsonschema.net/vehicleModel/0/availability",
+							"required":false
+						},
+						"divisionID": {
+							"type":"string",
+							"id": "http://jsonschema.net/vehicleModel/0/divisionID",
+							"required":false
+						},
+						"effectiveDate": {
+							"type":"string",
+							"id": "http://jsonschema.net/vehicleModel/0/effectiveDate",
+							"required":false
+						},
+						"modelComment": {
+							"type":"null",
+							"id": "http://jsonschema.net/vehicleModel/0/modelComment",
+							"required":false
+						},
+						"modelID": {
+							"type":"string",
+							"id": "http://jsonschema.net/vehicleModel/0/modelID",
+							"required":false
+						},
+						"modelName": {
+							"type":"string",
+							"id": "http://jsonschema.net/vehicleModel/0/modelName",
+							"required":false
+						},
+						"modelYear": {
+							"type":"string",
+							"id": "http://jsonschema.net/vehicleModel/0/modelYear",
+							"required":false
+						},
+						"subdivisionID": {
+							"type":"string",
+							"id": "http://jsonschema.net/vehicleModel/0/subdivisionID",
+							"required":false
+						}
+					}
+				}
+			
+
+		}
+	}
+}

@@ -1,0 +1,56 @@
+    description: vehicle division information
+    get:
+        is: [client-id-required]
+        description: Search vehicle Manufacturers information using Manufacturer name
+        queryParameters:
+           divisionName:
+             displayName: vehicle division Name
+             type: string
+             description: vehicle division Name
+             example: Volvo
+             required: true
+        responses:
+          200:
+            body:    
+              schema: vehicle-division
+              example: !include examples/vehicle/vehicle-division.json
+          400: 
+            description: No division found in the MDM system for the given search criteria
+            body:
+              schema: error
+          500: 
+            description: No division found in the MDM system for the given search criteria
+            body:
+              schema: error
+    post:
+      is: [client-id-required]
+      description: Add or create a new division
+      body:
+        schema: vehicle-division
+        example: !include examples/vehicle/vehicle-division.json
+      responses:
+        201:
+          description: A new division is created. Use the header location url to get the new division object.
+          headers:
+            location:
+              description: "Relative URL of the created header."
+              type: string
+              required: true
+              example: /division/52
+          body: null
+    put:
+      is: [client-id-required]
+      description: update division record in MDM
+      body:
+        schema: vehicle-division
+        example: !include examples/vehicle/vehicle-division.json
+      responses:
+        201:
+          description: Use the header location url to get the new division object.
+          headers:
+            location:
+              description: "Relative URL of the updated header."
+              type: string
+              required: true
+              example: /division/52
+          body: null      

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:anypoint-mq="http://www.mulesoft.org/schema/mule/anypoint-mq" xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:ws="http://www.mulesoft.org/schema/mule/ws" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/current/mule-ws.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/anypoint-mq http://www.mulesoft.org/schema/mule/anypoint-mq/current/mule-anypoint-mq.xsd">
+    <flow name="search-sippcodeFlow">
+        <flow-ref name="soapHeaderProperty" doc:name="soapHeaderProperty"/>
+        <dw:transform-message doc:name="Transform Message">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/xml
+%namespace ns0 urn:ebx-schemas:dataservices_1.0
+---
+{
+	ns0#select_SIPPCode: {
+		branch: "VehicleMasterDataSpace",
+		instance: "VehicleReferenceDataSet"
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <ws:consumer config-ref="Web_Service_Consumer" operation="select_SIPPCodeOperation" doc:name="Web Service Consumer"/>
+        <dw:transform-message doc:name="Transform Message">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+%namespace ns0 urn:ebx-schemas:dataservices_1.0
+---
+{ 
+	SIPPDate: payload.ns0#select_SIPPCodeResponse.data.root.SIPPData.*SIPPCode map {
+	sippCode: $.sippCode,
+    "category": $.category,
+    "categoryDescription": $."_categoryDescription",
+    "type": $.type,
+    "typeDescription": $."_typeDescription",
+    "transmissionDrive": $."_transmissionDriveDescription",
+    "transmissionDriveDescription": $."_transmissionDriveDescription",
+    "fuelAirConditioning": $."_fuelAirConditioningDescription",
+    "fuelAirConditioningDescription": $."_fuelAirConditioningDescription",
+    "description": $.description
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <flow-ref name="publish2MQsippcodeSubFlow" doc:name="publish2MQsippcodeSubFlow"/>
+    </flow>
+    <sub-flow name="publish2MQsippcodeSubFlow">
+        <anypoint-mq:publish config-ref="Anypoint_MQ_Configuration" destination="sippcode-mq" doc:name="Anypoint MQ">
+            <anypoint-mq:message-builder messageId="#[server.dateTime]"/>
+        </anypoint-mq:publish>
+    </sub-flow>
+</mule>

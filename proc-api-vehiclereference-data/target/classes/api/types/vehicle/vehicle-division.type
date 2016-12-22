@@ -1,0 +1,38 @@
+{
+	"type":"object",
+	"$schema": "http://json-schema.org/draft-03/schema",
+	"id": "http://jsonschema.net",
+	"required":false,
+	"properties":{
+		"vehicleDivision": {
+			"type":"array",
+			"id": "http://jsonschema.net/vehicleDivision",
+			"required":false,
+			"items":
+				{
+					"type":"object",
+					"id": "http://jsonschema.net/vehicleDivision/0",
+					"required":false,
+					"properties":{
+						"divisionID": {
+							"type":"string",
+							"id": "http://jsonschema.net/vehicleDivision/0/divisionID",
+							"required":false
+						},
+						"divisionName": {
+							"type":"string",
+							"id": "http://jsonschema.net/vehicleDivision/0/divisionName",
+							"required":false
+						},
+						"manufacturerID": {
+							"type":"string",
+							"id": "http://jsonschema.net/vehicleDivision/0/manufacturerID",
+							"required":false
+						}
+					}
+				}
+			
+
+		}
+	}
+}

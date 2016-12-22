@@ -1,0 +1,56 @@
+    description: vehicle Model information
+    get:
+        is: [client-id-required]
+        description: Search vehicle Model information using Model name
+        queryParameters:
+           modelID:
+             displayName: vehicle model Id
+             type: number
+             description: vehicle model Id
+             example: 29865
+             required: true
+        responses:
+          200:
+            body:    
+              schema: vehicle-model
+              example: !include examples/vehicle/vehicle-model.json
+          400: 
+            description: No Vehicle found in the MDM system for the given search criteria
+            body:
+              schema: error
+          500: 
+            description: No Vehicle found in the MDM system for the given search criteria
+            body:
+              schema: error
+    post:
+      is: [client-id-required]
+      description: Add or create a new vehicle model
+      body:
+        schema: vehicle-model
+        example: !include examples/vehicle/vehicle-model.json
+      responses:
+        201:
+          description: A new vehicle model is created. Use the header location url to get the new vehicle model object.
+          headers:
+            location:
+              description: "Relative URL of the created header."
+              type: string
+              required: true
+              example: /model/52
+          body: null
+    put:
+      is: [client-id-required]
+      description: update division record in MDM
+      body:
+        schema: vehicle-model
+        example: !include examples/vehicle/vehicle-model.json
+      responses:
+        201:
+          description: Use the header location url to get the new vehicle model object.
+          headers:
+            location:
+              description: "Relative URL of the updated header."
+              type: string
+              required: true
+              example: /model/52
+          body: null 

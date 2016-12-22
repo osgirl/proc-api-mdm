@@ -1,0 +1,24 @@
+    description: Search sipp code
+    get:
+        is: [client-id-required]
+        description: Search sipp information using sipp code or retrive all sipp codes
+        queryParameters:
+           sippCode:
+             displayName: sipp code
+             type: string
+             description: sipp code
+             example: CBAN
+             required: false
+        responses:
+          200:
+            body:    
+              schema: sippcode
+              example: !include examples/search/sippcode.json
+          400: 
+            description: No Vehicle found in the MDM system for the given search criteria
+            body:
+              schema: error
+          500: 
+            description: No Vehicle found in the MDM system for the given search criteria
+            body:
+              schema: error

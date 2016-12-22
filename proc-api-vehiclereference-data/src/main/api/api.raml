@@ -1,0 +1,49 @@
+#%RAML 1.0
+title: Hertz Vehicle Reference Data
+description: process layer API
+version: 1.0
+#baseUri: https://proc-api-vehicle-info.cloudhub.io/vehicleinfo/v1
+baseUri: https://mocksvc.mulesoft.com/mocks/15c49c87-e27a-4d28-9d52-45f59b09c3b9/vehicleinfo/v1
+
+documentation: 
+  - title: Hertz Vehicle Reference Data
+    content: | 
+        welcome to the Hertz Hertz Vehicle Reference Data Process layer documentation
+  - title: Getting Started
+    content: !include docs/getting_started.md
+mediaType: application/json
+protocols: HTTPS
+
+types:
+  Patch:
+  vehicle-model:
+    type: !include api/types/vehicle/vehicle-model.type
+    description: This is the schema describing vehicle model information
+  vehicle:
+    type: !include api/types/search/vehicle.type
+    description: This is the schema describing vehicle information 
+  vehicle-division:
+    type: !include api/types/vehicle/vehicle-division.type
+    description: This is the schema describing vehicle division information 
+  vehicle-subdivision:
+    type: !include api/types/vehicle/vehicle-subdivision.type
+    description: This is the schema describing vehicle subdivision information 
+  sippcode:
+    type: !include api/types/search/sippcode.type
+    description: This is the schema describing sippcode information  
+  error:
+    type: !include api/types/error/error.type
+  errors:
+    type: !include api/types/error/errors.type  
+traits:
+  client-id-required:
+    headers:
+      client_id:
+        type: string
+        required: true
+      client_secret:
+        type: string
+        required: true
+        
+/search: !include api/search.raml
+/vehicle: !include api/vehicle.raml

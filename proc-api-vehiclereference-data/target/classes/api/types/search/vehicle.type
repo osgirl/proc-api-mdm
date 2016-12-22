@@ -1,0 +1,150 @@
+{
+	"type":"object",
+	"$schema": "http://json-schema.org/draft-03/schema",
+	"id": "http://jsonschema.net",
+	"required":false,
+	"properties":{
+		"vehicleManufacturer": {
+			"type":"object",
+			"id": "http://jsonschema.net/vehicleManufacturer",
+			"required":false,
+			"properties":{
+				"divisions": {
+					"type":"array",
+					"id": "http://jsonschema.net/vehicleManufacturer/divisions",
+					"required":false,
+					"items":
+						{
+							"type":"object",
+							"id": "http://jsonschema.net/vehicleManufacturer/divisions/0",
+							"required":false,
+							"properties":{
+								"divisionID": {
+									"type":"string",
+									"id": "http://jsonschema.net/vehicleManufacturer/divisions/0/divisionID",
+									"required":false
+								},
+								"divisionName": {
+									"type":"string",
+									"id": "http://jsonschema.net/vehicleManufacturer/divisions/0/divisionName",
+									"required":false
+								},
+								"manufacturerID": {
+									"type":"string",
+									"id": "http://jsonschema.net/vehicleManufacturer/divisions/0/manufacturerID",
+									"required":false
+								},
+								"subdivision": {
+									"type":"array",
+									"id": "http://jsonschema.net/vehicleManufacturer/divisions/0/subdivision",
+									"required":false,
+									"items":
+										{
+											"type":"object",
+											"id": "http://jsonschema.net/vehicleManufacturer/divisions/0/subdivision/0",
+											"required":false,
+											"properties":{
+												"Year": {
+													"type":"string",
+													"id": "http://jsonschema.net/vehicleManufacturer/divisions/0/subdivision/0/Year",
+													"required":false
+												},
+												"histSubdivisionID": {
+													"type":"string",
+													"id": "http://jsonschema.net/vehicleManufacturer/divisions/0/subdivision/0/histSubdivisionID",
+													"required":false
+												},
+												"modelYear": {
+													"type":"string",
+													"id": "http://jsonschema.net/vehicleManufacturer/divisions/0/subdivision/0/modelYear",
+													"required":false
+												},
+												"subdivisionID": {
+													"type":"string",
+													"id": "http://jsonschema.net/vehicleManufacturer/divisions/0/subdivision/0/subdivisionID",
+													"required":false
+												},
+												"subdivisionName": {
+													"type":"string",
+													"id": "http://jsonschema.net/vehicleManufacturer/divisions/0/subdivision/0/subdivisionName",
+													"required":false
+												}
+											}
+										}
+									
+
+								},
+								"vehicleModel": {
+									"type":"array",
+									"id": "http://jsonschema.net/vehicleManufacturer/divisions/0/vehicleModel",
+									"required":false,
+									"items":
+										{
+											"type":"object",
+											"id": "http://jsonschema.net/vehicleManufacturer/divisions/0/vehicleModel/0",
+											"required":false,
+											"properties":{
+												"HistModelID": {
+													"type":"string",
+													"id": "http://jsonschema.net/vehicleManufacturer/divisions/0/vehicleModel/0/HistModelID",
+													"required":false
+												},
+												"divisionID": {
+													"type":"string",
+													"id": "http://jsonschema.net/vehicleManufacturer/divisions/0/vehicleModel/0/divisionID",
+													"required":false
+												},
+												"effectiveDate": {
+													"type":"string",
+													"id": "http://jsonschema.net/vehicleManufacturer/divisions/0/vehicleModel/0/effectiveDate",
+													"required":false
+												},
+												"modelComment": {
+													"type":"string",
+													"id": "http://jsonschema.net/vehicleManufacturer/divisions/0/vehicleModel/0/modelComment",
+													"required":false
+												},
+												"modelID": {
+													"type":"string",
+													"id": "http://jsonschema.net/vehicleManufacturer/divisions/0/vehicleModel/0/modelID",
+													"required":false
+												},
+												"modelName": {
+													"type":"string",
+													"id": "http://jsonschema.net/vehicleManufacturer/divisions/0/vehicleModel/0/modelName",
+													"required":false
+												},
+												"modelYear": {
+													"type":"string",
+													"id": "http://jsonschema.net/vehicleManufacturer/divisions/0/vehicleModel/0/modelYear",
+													"required":false
+												},
+												"subdivisionID": {
+													"type":"string",
+													"id": "http://jsonschema.net/vehicleManufacturer/divisions/0/vehicleModel/0/subdivisionID",
+													"required":false
+												}
+											}
+										}
+									
+
+								}
+							}
+						}
+					
+
+				},
+				"manufacturerID": {
+					"type":"string",
+					"id": "http://jsonschema.net/vehicleManufacturer/manufacturerID",
+					"required":false
+				},
+				"manufacturerName": {
+					"type":"string",
+					"id": "http://jsonschema.net/vehicleManufacturer/manufacturerName",
+					"required":false
+				}
+			}
+		}
+	}
+}

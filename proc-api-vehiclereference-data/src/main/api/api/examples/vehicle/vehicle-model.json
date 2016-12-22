@@ -1,0 +1,24 @@
+{
+  "vehicleModel": [{
+    "modelID": "26894",
+    "divisionID": "41",
+    "availability": null,
+    "effectiveDate": "2015-01-05",
+    "HistModelID": "20155238",
+    "modelComment": null,
+    "modelName": "S80",
+    "modelYear": "2015",
+    "subdivisionID": "8272"
+  },
+{
+    "modelID": "28306",
+    "divisionID": "41",
+    "availability": null,
+    "effectiveDate": "2015-01-05",
+    "HistModelID": "20165238",
+    "modelComment": null,
+    "modelName": "S60",
+    "modelYear": "2015",
+    "subdivisionID": "8491"
+  }]
+}

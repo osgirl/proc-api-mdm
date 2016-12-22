@@ -1,0 +1,41 @@
+{
+  "vehicleManufacturer": {
+    "manufacturerID": "41",
+    "manufacturerName": "Volvo",
+    "divisions": [{
+        "divisionID": "41",
+        "divisionName": "MINI",
+        "manufacturerID": "25",
+    	"subdivision": [
+      	{
+        "subdivisionID": "8272",
+        "modelYear": "2015",
+        "histSubdivisionID": "52",
+        "subdivisionName": "Volvo",
+        "Year": "41|2015"
+      	}
+    ],
+ "vehicleModel":[
+{
+"modelID":"28019",   
+    "effectiveDate": "2015-01-05",
+    "HistModelID": "20155238",
+    "modelComment": "1234",
+    "modelName": "S80",
+    "modelYear": "2015",
+    "subdivisionID": "8272",
+"divisionID": "41"
+},
+{
+"modelID":"28306",   
+    "effectiveDate": "2015-01-05",
+    "HistModelID": "20155238",
+    "modelComment": "q23",
+    "modelName": "S80",
+    "modelYear": "2015",
+    "subdivisionID": "8272",
+"divisionID": "41"
+}
+]}]
+  }
+}

@@ -1,0 +1,28 @@
+{"SIPPData": [{
+    "sippCode": "CBAN",
+    "category": "C",
+    "categoryDescription": "Compact",
+    "type": "B",
+    "typeDescription": "2/3 door",
+    "transmissionDrive": "A",
+    "transmissionDriveDescription": "Auto, unspecified drive",
+    "fuelAirConditioning": "N",
+    "fuelAirConditioningDescription": "Unspecified fuel, no A/C",
+    "description": "Compact|2/3 door|Auto, unspecified drive|Unspecified fuel, no A/C"
+    
+  },
+  {
+    "sippCode": "CBAN",
+    "category": "C",
+    "categoryDescription": "Compact",
+    "type": "B",
+    "typeDescription": "2/3 door",
+    "transmissionDrive": "A",
+    "transmissionDriveDescription": "Auto, unspecified drive",
+    "fuelAirConditioning": "N",
+    "fuelAirConditioningDescription": "Unspecified fuel, no A/C",
+    "description": "Compact|2/3 door|Auto, unspecified drive|Unspecified fuel, no A/C"
+    
+  }
+]
+}

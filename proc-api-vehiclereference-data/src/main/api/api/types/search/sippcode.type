@@ -1,0 +1,72 @@
+{
+	"type":"object",
+	"$schema": "http://json-schema.org/draft-03/schema",
+	"id": "http://jsonschema.net",
+	"required":false,
+	"properties":{
+		"0": {
+			"type":"object",
+			"id": "http://jsonschema.net/0",
+			"required":false,
+			"properties":{
+				"SIPPData": {
+					"type":"object",
+					"id": "http://jsonschema.net/0/SIPPData",
+					"required":false,
+					"properties":{
+						"categoryDescription": {
+							"type":"string",
+							"id": "http://jsonschema.net/0/SIPPData/categoryDescription",
+							"required":false
+						},
+						"category": {
+							"type":"string",
+							"id": "http://jsonschema.net/0/SIPPData/category",
+							"required":false
+						},
+						"description": {
+							"type":"string",
+							"id": "http://jsonschema.net/0/SIPPData/description",
+							"required":false
+						},
+						"fuelAirConditioningDescription": {
+							"type":"string",
+							"id": "http://jsonschema.net/0/SIPPData/fuelAirConditioningDescription",
+							"required":false
+						},
+						"fuelAirConditioning": {
+							"type":"string",
+							"id": "http://jsonschema.net/0/SIPPData/fuelAirConditioning",
+							"required":false
+						},
+						"sippCode": {
+							"type":"string",
+							"id": "http://jsonschema.net/0/SIPPData/sippCode",
+							"required":false
+						},
+						"transmissionDriveDescription": {
+							"type":"string",
+							"id": "http://jsonschema.net/0/SIPPData/transmissionDriveDescription",
+							"required":false
+						},
+						"transmissionDrive": {
+							"type":"string",
+							"id": "http://jsonschema.net/0/SIPPData/transmissionDrive",
+							"required":false
+						},
+						"typeDescription": {
+							"type":"string",
+							"id": "http://jsonschema.net/0/SIPPData/typeDescription",
+							"required":false
+						},
+						"type": {
+							"type":"string",
+							"id": "http://jsonschema.net/0/SIPPData/type",
+							"required":false
+						}
+					}
+				}
+			}
+		}
+	}
+}

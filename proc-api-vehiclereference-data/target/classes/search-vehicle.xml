@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:anypoint-mq="http://www.mulesoft.org/schema/mule/anypoint-mq" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/anypoint-mq http://www.mulesoft.org/schema/mule/anypoint-mq/current/mule-anypoint-mq.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
+
+ <flow name="searchFlow">
+        <logger level="INFO" doc:name="Logger"/>
+        <set-variable variableName="serviceInput" value="manufacturerName = '#[message.inboundProperties.'http.query.params'.manufacturerName]'" doc:name="serviceInput"/>
+        <tracking:custom-event event-name="Vehicle-Reference-Data" doc:name="Custom Business Event">
+            <tracking:meta-data key="manufacturerName" value="#[flowVars.serviceInput]"/>
+        </tracking:custom-event>
+        <flow-ref name="getManufacturers" doc:name="getManufacturers"/>
+        <set-variable variableName="serviceInput" value="manufacturerID = '#[flowVars.manufacturersOutput[0].manufacturerID]'" doc:name="serviceInput"/>
+        <tracking:custom-event event-name="Vehicle-Reference-Data" doc:name="Custom Business Event">
+            <tracking:meta-data key="getDivisions" value="#[flowVars.serviceInput]"/>
+        </tracking:custom-event>
+        <flow-ref name="getDivisionsSubFlow" doc:name="getDivisionsSubFlow"/>
+        <set-variable variableName="serviceInput" value="divisionID = '#[flowVars.divisionResponse[0].divisionID]'" doc:name="serviceInput"/>
+        <flow-ref name="getSubdivisionsSubFlow" doc:name="getSubdivisionsSubFlow"/>
+        <set-variable variableName="serviceInput" value="divisionID = '#[flowVars.divisionResponse[0].divisionID]'" doc:name="serviceInput"/>
+        <flow-ref name="getModelSubFlow" doc:name="getModelSubFlow"/>
+        <dw:transform-message doc:name="Transform Message">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	vehicleManufacturer: {
+		divisions: [{
+			divisionID: flowVars.divisionResponse[0].divisionID as :string,
+			divisionName: flowVars.divisionResponse[0].divisionName,
+			manufacturerID: flowVars.divisionResponse[0].manufacturerID,
+			subdivision: flowVars.subdivisionsOutput map ((subdivisionsOutput , indexOfSubdivisionsOutput) -> {
+				Year: subdivisionsOutput.Year,
+				histSubdivisionID: subdivisionsOutput.histSubdivisionID as :string,
+				modelYear: subdivisionsOutput.modelYear as :string,
+				subdivisionID: subdivisionsOutput.subdivisionID as :string,
+				subdivisionName: subdivisionsOutput.subdivisionName
+			}),
+			vehicleModel: flowVars.modelResponse map ((modelResponse , indexOfModelResponse) -> {
+				HistModelID: modelResponse.HistModelID as :string,
+				divisionID: modelResponse.divisionID,
+				effectiveDate: modelResponse.effectiveDate as :string,
+				modelComment: modelResponse.modelComment,
+				modelID: modelResponse.modelID as :string,
+				modelName: modelResponse.modelName,
+				modelYear: modelResponse.modelYear as :string,
+				subdivisionID: modelResponse.subdivisionID
+			})
+		}],
+		manufacturerID: flowVars.manufacturersOutput[0].manufacturerID as :string,
+		manufacturerName: flowVars.manufacturersOutput[0].manufacturerName
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <flow-ref name="publish2MQSubFlow" doc:name="publish2MQSubFlow"/>
+    </flow>
+    <sub-flow name="publish2MQSubFlow">
+        <anypoint-mq:publish config-ref="Anypoint_MQ_Configuration" destination="vehiclereference-data" doc:name="Anypoint MQ">
+            <anypoint-mq:message-builder messageId="#[server.dateTime]"/>
+        </anypoint-mq:publish>
+    </sub-flow>
+    </mule>
